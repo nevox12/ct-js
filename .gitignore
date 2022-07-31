@@ -68,6 +68,7 @@ app/data/fonts/style/.css
 app/data/patronsCache.csv
 builds
 build
+src/installers/*.exe
 cache
 tempChangelog.md
 
