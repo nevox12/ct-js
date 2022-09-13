@@ -943,6 +943,8 @@
         "eventAlreadyExists": "The same event already exists!",
         "localEventVars": "Local variables",
         "createEventHint": "Create your first event in the left column, and define your logic here",
+        "jsCode": "JavaScript",
+        "blocks": "Blocks",
         "coreEventsCategories": {
             "lifecycle": "Lifecycle",
             "actions": "Actions",

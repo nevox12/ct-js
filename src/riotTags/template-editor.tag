@@ -88,15 +88,15 @@ template-editor.aPanel.aView.flexrow
             use(xlink:href="#plus")
     .template-editor-aCodeEditor
         .tabwrap.tall(style="position: relative")
-            //ul.tabs.aNav.nogrow.noshrink
-            //    li(onclick="{changeTab('javascript')}" class="{active: tab === 'javascript'}" title="JavaScript (Control+Q)" data-hotkey="Control+q")
-            //        svg.feather
-            //            use(xlink:href="#code")
-            //        span {voc.create}
-            //    li(onclick="{changeTab('blocks')}" class="{active: tab === 'blocks'}" title="Blurry (Control+W)" data-hotkey="Control+w")
-            //        svg.feather
-            //            use(xlink:href="#grid")
-            //        span {voc.step}
+            ul.tabs.aNav.nogrow.noshrink
+                li(onclick="{changeTab('javascript')}" class="{active: tab === 'javascript'}" title="JavaScript (Control+Q)" data-hotkey="Control+q")
+                    svg.feather
+                        use(xlink:href="#code-alt")
+                    span {vocRoot.scriptables.jsCode}
+                li(onclick="{changeTab('blocks')}" class="{active: tab === 'blocks'}" title="Blurry (Control+W)" data-hotkey="Control+w")
+                    svg.feather
+                        use(xlink:href="#grid")
+                    span {vocRoot.scriptables.blocks}
             div
                 .tabbed.noborder(show="{tab === 'javascript'}")
                     code-editor-scriptable(event="{currentSheet}" entitytype="template")
