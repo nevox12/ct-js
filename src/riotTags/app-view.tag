@@ -7,7 +7,7 @@ app-view.flexcol
             li.limitwidth(onclick="{changeTab('patrons')}" title="{voc.patrons}" class="{active: tab === 'patrons'}")
                 svg.feather
                     use(xlink:href="#heart")
-            li.limitwidth.nbr(onclick="{saveProject}" title="{vocGlob.save} (Control+S)" data-hotkey="Control+s")
+            li.limitwidth(onclick="{saveProject}" title="{vocGlob.save} (Control+S)" data-hotkey="Control+s")
                 svg.feather
                     use(xlink:href="#save")
             li.nbl(onclick="{runProject}" class="{active: tab === 'debug'}" title="{voc.launch} {voc.launchHotkeys}" data-hotkey="F5")
@@ -59,7 +59,7 @@ app-view.flexcol
         sounds-panel(show="{tab === 'sounds'}" data-hotkey-scope="sounds" ref="soundsPanel")
         templates-panel(show="{tab === 'templates'}" data-hotkey-scope="templates")
         rooms-panel(show="{tab === 'rooms'}" data-hotkey-scope="rooms")
-        patreon-screen(if="{tab === 'patrons'}" data-hotkey-scope="patrons")
+        patrons-screen(if="{tab === 'patrons'}" data-hotkey-scope="patrons")
     new-project-onboarding(if="{sessionStorage.showOnboarding && localStorage.showOnboarding !== 'off'}")
     notepad-panel(ref="notepadPanel")
     tour-guide(tour="{appTour}" onfinish="{onAppTourFinish}" ref="tour" header="{voc.tour.header}")

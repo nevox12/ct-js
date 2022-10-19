@@ -2,6 +2,7 @@ const glob = require('./../glob');
 const {getUnwrappedExtends} = require('./utils');
 import {getBaseScripts} from './scriptableProcessor';
 import {getTextureFromId} from '../resources/textures';
+import {flattenGroups} from './groups';
 
 const getStartingRoom = (proj: IProject): IRoom => {
     let [startroom] = proj.rooms; // picks the first room by default
@@ -70,6 +71,7 @@ type ExportedBg = {
 
 // eslint-disable-next-line max-lines-per-function
 const stringifyRooms = (proj: IProject): IScriptablesFragment => {
+    const groups = flattenGroups(proj).rooms;
     let roomsCode = '';
     let rootRoomOnCreate = '';
     let rootRoomOnStep = '';
@@ -142,12 +144,19 @@ const stringifyRooms = (proj: IProject): IScriptablesFragment => {
         roomsCode += `
 ct.rooms.templates['${r.name}'] = {
     name: '${r.name}',
+    group: '${groups[r.group ? r.group.replace(/'/g, '\\\'') : -1]}',
     width: ${r.width},
     height: ${r.height},` +
     /* JSON.parse is faster at loading big objects */`
-    objects: JSON.parse('${JSON.stringify(objs).replace(/\\/g, '\\\\')}'),
-    bgs: JSON.parse('${JSON.stringify(bgs).replace(/\\/g, '\\\\')}'),
-    tiles: JSON.parse('${JSON.stringify(tileLayers).replace(/\\/g, '\\\\')}'),
+    objects: JSON.parse('${JSON.stringify(objs)
+        .replace(/\\/g, '\\\\')
+        .replace(/'/g, '\\\'')}'),
+    bgs: JSON.parse('${JSON.stringify(bgs)
+        .replace(/\\/g, '\\\\')
+        .replace(/'/g, '\\\'')}'),
+    tiles: JSON.parse('${JSON.stringify(tileLayers)
+        .replace(/\\/g, '\\\\')
+        .replace(/'/g, '\\\'')}'),
     backgroundColor: '${r.backgroundColor || '#000000'}',
     ${constraints ? 'cameraConstraints: ' + JSON.stringify(constraints) + ',' : ''}
     onStep() {
