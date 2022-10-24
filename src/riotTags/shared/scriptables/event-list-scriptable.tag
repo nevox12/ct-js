@@ -33,9 +33,9 @@ event-list-scriptable.flexfix(class="{opts.class}")
                 img.icon.nogrow.noshrink(if="{getIsParametrized(event) && getIcon(event)}" src="{getIcon(event)}")
                 span.nogrow.crop(title="{localizeName(event)}") {localizeName(event)}
                 .aSpacer.noshrink
-                svg.feather.nogrow.anActionableIcon.noshrink.nogrow(onclick="{promptEditEvent(event)}" if="{getIsParametrized(event)}")
+                svg.feather.anActionableIcon.noshrink.nogrow(onclick="{promptEditEvent(event)}" if="{getIsParametrized(event)}")
                     use(xlink:href="#edit")
-                svg.feather.nogrow.anActionableIcon.noshrink.nogrow(onclick="{promptRemoveEvent(event)}")
+                svg.feather.anActionableIcon.noshrink.nogrow(onclick="{promptRemoveEvent(event)}")
                     use(xlink:href="#trash")
     .flexfix-footer
         .event-list-scriptable-LocalVars(if="{getHasLocalVars(currentEvent)}")
