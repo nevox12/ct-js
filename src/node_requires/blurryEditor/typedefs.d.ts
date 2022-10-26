@@ -67,10 +67,11 @@ declare interface IBlock {
 }
 
 declare interface IBlockCanvas {
-    blocks: IBlock[] & {
+    floatingBlocks: IBlock[] & {
         x: number;
         y: number;
     };
+    coreBlocks: IBlock[];
 }
 
 declare type blockRegistry = Record<string, blockDeclaration>;

@@ -3,7 +3,8 @@ interface IScriptableEvent {
     arguments: {
         [key: string]: assetRef | string | number | boolean;
     };
-    code: string;
+    code?: string;
+    blocks?: IBlockCanvas;
     eventKey: string;
 }
 

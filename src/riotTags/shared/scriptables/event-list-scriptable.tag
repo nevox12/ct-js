@@ -62,10 +62,22 @@ event-list-scriptable.flexfix(class="{opts.class}")
             )
             .aSpacer.nogrow(if="{opts.entitytype === 'template'}")
             .relative
-                button.nm.wide(onclick="{openEventMenu}")
-                    svg.feather
-                        use(xlink:href="#plus")
-                        span {voc.addEvent}
+                .aButtonGroup(if="{localStorage.preferBlocks !== 'yes'}")
+                    button.nm.wide(onclick="{openEventMenu(false)}")
+                        svg.feather
+                            use(xlink:href="#code-alt")
+                            span {voc.addEvent}
+                    button.nm.wide(onclick="{openEventMenu(true)}")
+                        svg.feather
+                            use(xlink:href="#grid")
+                .aButtonGroup(if="{localStorage.preferBlocks === 'yes'}")
+                    button.nm.wide(onclick="{openEventMenu(true)}")
+                        svg.feather
+                            use(xlink:href="#grid")
+                            span {voc.addEvent}
+                    button.nm.wide(onclick="{openEventMenu(false)}")
+                        svg.feather
+                            use(xlink:href="#code-alt")
     modal-menu(menu="{eventsMenu}" ref="eventsMenu" enablesearch="true")
     argument-editor-scriptable(event="{this.currentEvent}" ref="argumentsMenu" onapplied="{onArgumentsApplied}")
     script.
@@ -200,6 +212,7 @@ event-list-scriptable.flexfix(class="{opts.class}")
             });
         };
 
-        this.openEventMenu = () => {
+        this.openEventMenu = useBlocks => () => {
+            this.useBlocks = useBlocks;
             this.refs.eventsMenu.open();
         };
