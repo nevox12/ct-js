@@ -648,6 +648,7 @@
             "codeLigatures": "Ligatures",
             "codeDense": "Dense layout",
             "altTemplateLayout": "Alternative layout for template editor",
+            "preferBlocks": "Prefer block coding",
             "disableSounds": "Disable UI sounds",
             "changeDataFolder": "Set data folder location",
             "forceProductionForDebug": "Force production tasks for debug exports"

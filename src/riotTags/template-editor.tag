@@ -86,22 +86,8 @@ template-editor.aPanel.aView.flexrow
                 +eventsList()
         svg.feather.template-editor-aSlidingEventListIcon.unclickable
             use(xlink:href="#plus")
-    .template-editor-aCodeEditor
-        .tabwrap.tall(style="position: relative")
-            ul.tabs.aNav.nogrow.noshrink
-                li(onclick="{changeTab('javascript')}" class="{active: tab === 'javascript'}" title="JavaScript (Control+Q)" data-hotkey="Control+q")
-                    svg.feather
-                        use(xlink:href="#code-alt")
-                    span {vocRoot.scriptables.jsCode}
-                li(onclick="{changeTab('blocks')}" class="{active: tab === 'blocks'}" title="Blurry (Control+W)" data-hotkey="Control+w")
-                    svg.feather
-                        use(xlink:href="#grid")
-                    span {vocRoot.scriptables.blocks}
-            div
-                .tabbed.noborder(show="{tab === 'javascript'}")
-                    code-editor-scriptable(event="{currentSheet}" entitytype="template")
-                // .tabbed(show="{tab === 'blocks'}")
-                //     .aBlocksEditor(ref="blocks")
+    .template-editor-aCodeEditor.relative
+        code-editor-scriptable(if="{'code' in currentSheet}" event="{currentSheet}" entitytype="template")
     .template-editor-Properties.nmr(if="{localStorage.altTemplateLayout !== 'on'}")
         .tall.flexfix.aPanel.pad
             .flexfix-body

@@ -56,28 +56,26 @@ event-list-scriptable.flexfix(class="{opts.class}")
                 hidelabel="hidelabel"
                 path="/ct.templates.html"
                 button="true"
-                wide="true"
                 title="{voc.learnAboutTemplates}"
                 if="{opts.entitytype === 'template'}"
             )
             .aSpacer.nogrow(if="{opts.entitytype === 'template'}")
-            .relative
-                .aButtonGroup(if="{localStorage.preferBlocks !== 'yes'}")
-                    button.nm.wide(onclick="{openEventMenu(false)}")
-                        svg.feather
-                            use(xlink:href="#code-alt")
-                            span {voc.addEvent}
-                    button.nm.wide(onclick="{openEventMenu(true)}")
-                        svg.feather
-                            use(xlink:href="#grid")
-                .aButtonGroup(if="{localStorage.preferBlocks === 'yes'}")
-                    button.nm.wide(onclick="{openEventMenu(true)}")
-                        svg.feather
-                            use(xlink:href="#grid")
-                            span {voc.addEvent}
-                    button.nm.wide(onclick="{openEventMenu(false)}")
-                        svg.feather
-                            use(xlink:href="#code-alt")
+            .aButtonGroup.relative.nm.flexrow(if="{localStorage.preferBlocks !== 'yes'}")
+                button.nm(onclick="{openEventMenu(false)}")
+                    svg.feather
+                        use(xlink:href="#code-alt")
+                        span {voc.addEvent}
+                button.nm.nogrow.square(onclick="{openEventMenu(true)}")
+                    svg.feather
+                        use(xlink:href="#grid")
+            .aButtonGroup.relative.nm.flexrow(if="{localStorage.preferBlocks === 'yes'}")
+                button.nm(onclick="{openEventMenu(true)}")
+                    svg.feather
+                        use(xlink:href="#grid")
+                        span {voc.addEvent}
+                button.nm.nogrow.square(onclick="{openEventMenu(false)}")
+                    svg.feather
+                        use(xlink:href="#code-alt")
     modal-menu(menu="{eventsMenu}" ref="eventsMenu" enablesearch="true")
     argument-editor-scriptable(event="{this.currentEvent}" ref="argumentsMenu" onapplied="{onArgumentsApplied}")
     script.
@@ -129,10 +127,14 @@ event-list-scriptable.flexfix(class="{opts.class}")
             }
             const newEvent = {
                 eventKey: newEventPath[1],
-                code: '',
                 arguments: {},
                 lib: newEventPath[0]
             };
+            if (this.useBlocks) {
+                newEvent.blocks = [];
+            } else {
+                newEvent.code = '';
+            }
             this.opts.events.push(newEvent);
             this.currentEvent = newEvent;
             this.opts.onchanged(this.currentEvent);

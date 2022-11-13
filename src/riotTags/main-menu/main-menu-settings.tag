@@ -22,6 +22,10 @@ main-menu-settings
             svg.feather
                 use(xlink:href="#{localStorage.altTemplateLayout === 'on' ? 'check-square' : 'square'}")
             span {voc.altTemplateLayout}
+        li(onclick="{togglePreferBlocks}")
+            svg.feather
+                use(xlink:href="#{localStorage.preferBlocks === 'yes' ? 'check-square' : 'square'}")
+            span {voc.preferBlocks}
         li(onclick="{toggleSounds}")
             svg.feather
                 use(xlink:href="#{localStorage.disableSounds === 'on' ? 'check-square' : 'square'}")
@@ -55,6 +59,9 @@ main-menu-settings
             this.showLanguageSelector = true;
         };
 
+        this.togglePreferBlocks = () => {
+            localStorage.preferBlocks = localStorage.preferBlocks === 'yes' ? 'no' : 'yes';
+        };
         this.toggleTemplatesLayout = () => {
             localStorage.altTemplateLayout = localStorage.altTemplateLayout === 'on' ? 'off' : 'on';
         };
