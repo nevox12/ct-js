@@ -67,10 +67,10 @@ declare interface IBlock {
 }
 
 declare interface IBlockCanvas {
-    floatingBlocks: IBlock[] & {
+    /* floatingBlocks: IBlock[] & {
         x: number;
         y: number;
-    };
+    }; */
     coreBlocks: IBlock[];
 }
 
