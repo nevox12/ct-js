@@ -637,6 +637,7 @@ class RoomEditor extends PIXI.Application {
 
     #selectCopies = true;
     #selectTiles = true;
+    #selectUi = true;
     get selectCopies(): boolean {
         return this.#selectCopies;
     }
@@ -650,6 +651,13 @@ class RoomEditor extends PIXI.Application {
     set selectTiles(value: boolean) {
         value = Boolean(value);
         this.#selectTiles = value;
+    }
+    get selectUi(): boolean {
+        return this.#selectUi;
+    }
+    set selectUi(value: boolean) {
+        value = Boolean(value);
+        this.#selectUi = value;
     }
 
     goHome(): void {

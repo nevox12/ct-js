@@ -1,42 +1,47 @@
 //
-    @attribute room (IRoom)
+    @attribute target (IRoom|IUIElement)
+    @attribute entitytype ('room'|'button'|'text'|'panel'|'sprite')
+    @attribute name (string)
     @attribute onsave (riot function)
 room-events-editor.aView.flexrow.pad
     .tall.flexfix.aPanel.pad.room-events-editor-Properties.nogrow
+        .flexfix-header
+            h3
+                svg.feather
+                    use(xlink:href="#{entityTypeToIcon[opts.entitytype]}")
+                |
+                |
+                span {opts.name}
+            .aSpacer
         .flexfix-body
             event-list-scriptable.tall(
-                events="{room.events}"
-                entitytype="room"
+                events="{target.events}"
+                entitytype="{opts.entitytype}"
                 onchanged="{changeCodeTab}"
                 currentevent="{currentSheet}"
             )
         .flexfix-footer
             .aSpacer
-            button.wide(onclick="{roomSaveEvents}" title="Shift+Control+S" data-hotkey="Shift+Control+S")
+            button.wide(onclick="{saveEvents}" title="Shift+Control+S" data-hotkey="Shift+Control+S")
                 svg.feather
                     use(xlink:href="#check")
                 span {voc.done}
     .tabwrap.tall(style="position: relative")
-        code-editor-scriptable(event="{currentSheet}" entitytype="room" ref="codeeditor")
-        //ul.tabs.aNav.nogrow.noshrink
-        //    li(onclick="{changeTab('javascript')}" class="{active: tab === 'javascript'}" title="JavaScript (Control+Q)" data-hotkey="Control+q")
-        //        svg.feather
-        //            use(xlink:href="#code")
-        //        span {voc.create}
-        //    li(onclick="{changeTab('blocks')}" class="{active: tab === 'blocks'}" title="Blurry (Control+W)" data-hotkey="Control+w")
-        //        svg.feather
-        //            use(xlink:href="#grid")
-        //        span {voc.step}
+        code-editor-scriptable(event="{currentSheet}" entitytype="{opts.entitytype}" ref="codeeditor")
     script.
         this.namespace = 'roomView';
         this.mixin(window.riotVoc);
 
-        this.room = this.opts.room;
-        [this.currentSheet] = this.room.events; // can be undefined, this is ok
-        this.tab = 'javascript';
-        this.changeTab = tab => () => {
-            this.tab = tab;
+        this.entityTypeToIcon = {
+            room: 'room',
+            button: 'button',
+            text: 'font',
+            panel: 'square',
+            sprite: 'texture'
         };
+
+        this.target = this.opts.target;
+        [this.currentSheet] = this.target.events; // can be undefined, this is ok
 
         this.focusEditor = () => {
             this.refs.codeeditor.codeEditor.focus();
@@ -51,6 +56,6 @@ room-events-editor.aView.flexrow.pad
             this.update();
         };
 
-        this.roomSaveEvents = () => {
+        this.saveEvents = () => {
             this.opts.onsave();
         };

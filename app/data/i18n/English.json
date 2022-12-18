@@ -750,6 +750,15 @@
         "addTileLayer": "Add a tile layer",
         "addTileLayerFirst": "Firstly add a tile layer in the left panel!"
     },
+    "roomUi": {
+        "elementTypes": {
+            "button": "Button",
+            "textLabel": "Text label",
+            "panel": "Panel",
+            "sprite": "Sprite"
+        },
+        "addNewElement": "Add new UI element"
+    },
     "roomView": {
         "name": "Name:",
         "viewportHeading": "Viewport",
@@ -768,6 +777,7 @@
         "colorizeTileLayers": "Colorize tile layers",
         "copies": "Copies",
         "backgrounds": "Backgrounds",
+        "uiElements": "UI elements",
         "backgroundColor": "Background color:",
         "tiles": "Tiles",
         "properties": "Properties",
@@ -825,6 +835,7 @@
             "addCopies": "Add copies",
             "addTiles": "Add tiles",
             "manageBackgrounds": "Manage backgrounds",
+            "manageUi": "Manage UI elements",
             "roomProperties": "Room properties"
         }
     },

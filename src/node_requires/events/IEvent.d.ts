@@ -5,7 +5,7 @@ declare interface IEventCategory {
     [key: string]: string;
 }
 
-type EventApplicableEntities = 'template' | 'room';
+type EventApplicableEntities = 'template' | 'room' | 'button' | 'panel' | 'text' | 'sprite';
 type EventArgumentTypes =
     'integer' | 'float' | 'string' | 'boolean' |
     'template' | 'room' | 'sound' | 'tandem' | 'font' | 'style' | 'texture' | 'action';

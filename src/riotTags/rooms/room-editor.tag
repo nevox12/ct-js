@@ -45,10 +45,19 @@ room-editor.aPanel.aView
                 svg.feather
                     use(xlink:href="#image")
             button.forcebackground(
+                onclick="{setTool('ui')}"
+                class="{active: currentTool === 'ui'}"
+                title="{voc.tools.manageUi} (T)"
+                data-hotkey="t"
+                data-hotkey-require-scope="rooms"
+            )
+                svg.feather
+                    use(xlink:href="#ui")
+            button.forcebackground(
                 onclick="{setTool('roomProperties')}"
                 class="{active: currentTool === 'roomProperties'}"
-                title="{voc.tools.roomProperties} (T)"
-                data-hotkey="t"
+                title="{voc.tools.roomProperties} (Y)"
+                data-hotkey="y"
                 data-hotkey-require-scope="rooms"
             )
                 svg.feather
@@ -101,6 +110,12 @@ room-editor.aPanel.aView
             history="{pixiEditor?.history}"
             ref="backgroundsEditor"
         )
+        room-ui-elements.room-editor-aContextPanel(
+            if="{currentTool === 'ui'}"
+            room="{opts.room}"
+            history="{pixiEditor?.history}"
+            ref="uiEditor"
+        )
 
         // Global controls placed at the top-center
         .room-editor-aTopPanel
@@ -133,7 +148,7 @@ room-editor.aPanel.aView
                     use(xlink:href="#check")
                 span {vocGlob.save}
 
-    room-events-editor(if="{editingEvents}" room="{opts.room}" onsave="{closeRoomEvents}")
+    room-events-editor(if="{editingEvents}" target="{opts.room}" entitytype="room" name="{opts.room.name}" onsave="{closeRoomEvents}")
     context-menu(menu="{gridMenu}" ref="gridMenu")
     context-menu(menu="{zoomMenu}" ref="zoomMenu")
     context-menu(menu="{visibilityMenu}" ref="visibilityMenu" if="{pixiEditor}")
@@ -206,6 +221,10 @@ room-editor.aPanel.aView
             icon: 'grid',
             hintVocKey: 'tiles',
             key: 'selectTiles'
+        }, {
+            icon: 'ui',
+            hintVocKey: 'uiElements',
+            key: 'selectUi'
         }];
         this.toggleSelectables = e => {
             this.pixiEditor[e.item.lockable.key] = !this.pixiEditor[e.item.lockable.key];

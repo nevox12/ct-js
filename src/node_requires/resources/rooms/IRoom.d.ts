@@ -52,7 +52,74 @@ interface ITileLayerTemplate {
     hidden?: boolean;
 }
 
-interface IRoom extends IScriptable {
+declare type array2DPoint = [number, number];
+
+interface IHasText {
+    text: string,
+    overrideTextStyle: boolean,
+    textStyle: assetRef,
+    textStyleOverrides: {
+        fontSize?: number,
+        color?: number,
+    },
+    bindTextExpression?: string
+}
+
+declare interface IUIElement {
+    name: string,
+    measurements: 'px' | '%',
+    angle: number,
+    alpha: number,
+    skew: array2DPoint,
+    pivot: array2DPoint,
+    originPoint: array2DPoint,
+    position: array2DPoint,
+    size: array2DPoint,
+    events: IScriptableEvent[],
+    bindVisibilityExpression?: string,
+    depth: number
+}
+
+declare interface IUIText extends IUIElement, IHasText {
+    type: 'text'
+}
+
+declare interface IUISprite extends IUIElement {
+    type: 'sprite',
+    texture: assetRef;
+    tint: number;
+    animate: boolean;
+    animationFramerate: number;
+    bindTextureExpression?: string;
+}
+
+declare interface IUIPanel extends IUIElement {
+    type: 'panel',
+    texture: assetRef;
+    tint: number;
+}
+
+declare interface IUIButton extends IUIElement, IHasText {
+    type: 'button',
+    texture: assetRef,
+    tint: number,
+    use9patch: boolean,
+    bindDisabledExpression?: string,
+    textureHover: assetRef,
+    texturePress: assetRef,
+    textureDisabled: assetRef,
+    tintHover: number,
+    tintPress: number,
+    tintDisabled: number,
+    disabled: boolean,
+    soundHover: assetRef,
+    soundPress: assetRef,
+    soundPressDisabled: assetRef
+}
+
+declare type uiElement = IUIButton | IUISprite | IUIText | IUIPanel;
+
+declare interface IRoom extends IScriptable {
     width: number;
     height: number;
     /** A CSS color */

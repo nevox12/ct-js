@@ -4,7 +4,7 @@
 
     @attribute entity (riot object)
         An object to which apply editing to.
-    @attribute type (string, 'template'|'tileLayer'|'room'|'copy')
+    @attribute [type] (string, 'template'|'tileLayer'|'room'|'copy')
         The type of the edited asset. Not needed if customextends is set.
 
     @attribute [compact] (atomic)
@@ -26,7 +26,7 @@
         name: string, // the displayed name.
         // Below 'h1', 'h2', 'h3', 'h4' are purely decorational, for grouping fields. Others denote the type of an input field.
         type: 'h1' | 'h2' | 'h3' | 'h4' |
-              'text' | 'textfield' | 'code' |
+              'text' | 'textfield' | 'code' | 'codestring' |
               'number' | 'slider' | 'sliderAndNumber' | 'point2D' | 'color' |
               'checkbox' | 'radio' | 'select' |
               'group' | 'table' | 'array' |
@@ -193,6 +193,16 @@ extensions-editor
                     value="{parent.opts.entity[ext.key] || ext.default}"
                     onchange="{wireAndNotify('this.opts.entity.'+ ext.key)}"
                 )
+                .flexrow(if="{ext.type === 'codestring'}")
+                    input.code(
+                        class="{compact: parent.opts.compact, wide: parent.opts.wide, invalid: ext.required && !parent.opts.entity[ext.key]}"
+                        type="text"
+                        value="{parent.opts.entity[ext.key] || ext.default}"
+                        onchange="{wireAndNotify('this.opts.entity.'+ ext.key)}"
+                    )
+                    .aSpacer
+                    svg.icon.nogrow.alignmiddle
+                        use(xlink:href="#{ext.languageIcon || 'javascript'}")
                 input(
                     if="{ext.type === 'number'}"
                     class="{compact: parent.opts.compact, wide: parent.opts.wide, invalid: ext.required && !Number.isFinite(parent.opts.entity[ext.key])}"
