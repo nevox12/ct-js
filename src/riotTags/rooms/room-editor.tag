@@ -89,7 +89,7 @@ room-editor.aPanel.aView
         room-template-picker.room-editor-aContextPanel(
             if="{currentTool === 'addCopies'}"
             onselect="{changeSelectedTemplate}"
-            selected="{currentTemplate}"
+            selectedtemplate="{currentTemplate}"
         )
         room-tile-editor.room-editor-aContextPanel(
             if="{currentTool === 'addTiles'}"
@@ -347,6 +347,7 @@ room-editor.aPanel.aView
         this.currentTemplate = -1;
         this.changeSelectedTemplate = template => {
             this.currentTemplate = template;
+            this.update();
         };
 
         this.tilePatch = void 0;
