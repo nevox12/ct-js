@@ -62,6 +62,8 @@ const getPixiTexture = (template: ITemplate | assetRef): PIXI.Texture[] => {
     return getTexturePixiTexture(template.texture, void 0, true);
 };
 
+const getTemplates = (): ITemplate[] => global.currentProject.templates;
+
 export {
     getDefaultTemplate,
     getTemplateFromId,
@@ -69,5 +71,6 @@ export {
     getTemplatePreview,
     getThumbnail,
     createNewTemplate,
+    getTemplates,
     getPixiTexture
 };

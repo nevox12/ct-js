@@ -6,6 +6,9 @@ import {resetCounter as resetTileLayerCounter, TileLayer} from './entityClasses/
 import {Background} from './entityClasses/Background';
 import {Viewport} from './entityClasses/Viewport';
 
+import {IPixiUIElement} from './entityClasses/ui';
+import {UIButton} from './entityClasses/ui/button';
+
 import {SnapTarget} from './entityClasses/SnapTarget';
 import {MarqueeBox} from './entityClasses/MarqueeBox';
 import {Transformer} from './entityClasses/Transformer';
@@ -79,6 +82,9 @@ class RoomEditor extends PIXI.Application {
     copies = new Set<Copy>();
     tiles = new Set<Tile>();
     backgrounds: Background[] = [];
+    uiElements: IPixiUIElement[] = [];
+    uiElementToData: Map<IPixiUIElement, roomUiElement> = new Map();
+    uiDataToElement: Map<roomUiElement, IPixiUIElement> = new Map();
     viewports = new Set<Viewport>();
     tileLayers: TileLayer[] = [];
 
@@ -274,6 +280,20 @@ class RoomEditor extends PIXI.Application {
         this.backgrounds.push(bg);
         this.room.addChild(bg);
         return bg;
+    }
+
+    addUiElement(eltTemplate: roomUiElement): IPixiUIElement {
+        let elt;
+        switch (eltTemplate.type) {
+        case 'button':
+            elt = new UIButton(eltTemplate, this);
+            break;
+        default:
+            console.error(eltTemplate);
+            throw new Error(`Unknown element type: ${eltTemplate.type}`);
+            break;
+        }
+        return elt;
     }
 
     resizeClicktrap(): void {

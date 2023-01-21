@@ -10,7 +10,7 @@ room-ui-elements.flexfix(class="{opts.class}")
                 selected="{ind === currentElementIndex}"
             )
                 | {element.name}
-    .flexfix-body(if="{}")
+    .flexfix-body(if="{selectedUiElt}")
         fieldset
             label.flexrow
                 svg.feather.nogrow(title="{elementTypeProps[currentElement.type].title}")
@@ -188,17 +188,17 @@ room-ui-elements.flexfix(class="{opts.class}")
                 name: this.voc.originPoint,
                 type: 'point2D',
                 default: [0.5, 0.5],
-                key: 'pivot',
+                key: 'pivot', // TODO: not right
             }, {
                 name: this.voc.size,
                 type: 'point2D',
                 default: [0.5, 0.5],
                 key: 'size',
             }, {
-                name: this.voc.pivot,
+                name: this.voc.anchor,
                 type: 'point2D',
                 default: [0.5, 0.5],
-                key: 'pivot',
+                key: 'anchor',
             }, {
                 name: this.voc.position,
                 type: 'point2D',
@@ -294,11 +294,16 @@ room-ui-elements.flexfix(class="{opts.class}")
             items: ['text', 'sprite', 'panel', 'button'].map(type => ({
                 label: this.elementTypeProps[type].title,
                 icon: this.elementTypeProps[type].icon,
-                onclick: () => {
+                click: () => {
                     this.addElement(this.elementTypeProps[type].defaultGetter());
                 }
             }))
         };
         this.openAddElementMenu = e => {
             this.refs.addelementmenu.popup(e.clientX, e.clientY);
+        };
+        this.addElement = template => {
+            const elt = this.opts.pixieditor.addUiElement(template);
+            this.selectedUiElt = elt;
+            this.update();
         };

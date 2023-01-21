@@ -2,6 +2,7 @@ import {getPixiSwatch} from '../../themes';
 import {RoomEditor} from '..';
 import {snapToRectangularGrid, snapToDiagonalGrid} from '../common';
 import {getPixiTexture, getTextureFromId, getTexturePivot} from '../../resources/textures';
+import {getTemplates} from '../../resources/templates';
 import {createTilePatch} from '../interactions/tiles/placeTile';
 
 let unknownTextures = getPixiTexture(-1, void 0, true);
@@ -36,7 +37,11 @@ export class SnapTarget extends PIXI.Container {
 
         const {riotEditor} = this.editor;
         const {currentTemplate} = riotEditor;
-        if (riotEditor.currentTool === 'addCopies' && currentTemplate !== -1) {
+        let templateExists = false;
+        if (currentTemplate !== -1) {
+            templateExists = Boolean(getTemplates().find((t) => t.uid === currentTemplate.uid));
+        }
+        if (riotEditor.currentTool === 'addCopies' && currentTemplate !== -1 && templateExists) {
             this.ghost.visible = true;
             if (currentTemplate.texture === -1 &&
                 this.ghost.textures !== unknownTextures

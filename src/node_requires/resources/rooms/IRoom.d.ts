@@ -31,7 +31,7 @@ interface IRoomCopy {
     customProperties: Record<string, unknown>
 }
 
-interface ITileTemplate {
+declare interface ITileTemplate {
     x: number;
     y: number;
     opacity: number;
@@ -45,14 +45,12 @@ interface ITileTemplate {
     texture: string;
 }
 
-interface ITileLayerTemplate {
+declare interface ITileLayerTemplate {
     depth: number;
     tiles: Array<ITileTemplate>,
     extends?: Record<string, unknown>
     hidden?: boolean;
 }
-
-declare type array2DPoint = [number, number];
 
 interface IHasText {
     text: string,
@@ -65,26 +63,32 @@ interface IHasText {
     bindTextExpression?: string
 }
 
-declare interface IUIElement {
+declare interface IRoomUIElement {
     name: string,
     measurements: 'px' | '%',
     angle: number,
     alpha: number,
     skew: array2DPoint,
-    pivot: array2DPoint,
+
+    // originPoint is the point inside the container from which an element is positioned.
+    // Both size and originPoint use either in px or in %;
+    // they can't use different measurement values.
+    // Centering and other alignment is achieved by the regular element's anchor.
+    anchor: array2DPoint,
     originPoint: array2DPoint,
     position: array2DPoint,
+
     size: array2DPoint,
     events: IScriptableEvent[],
     bindVisibilityExpression?: string,
     depth: number
 }
 
-declare interface IUIText extends IUIElement, IHasText {
+declare interface IRoomUIText extends IRoomUIElement, IHasText {
     type: 'text'
 }
 
-declare interface IUISprite extends IUIElement {
+declare interface IRoomUISprite extends IRoomUIElement {
     type: 'sprite',
     texture: assetRef;
     tint: number;
@@ -93,17 +97,23 @@ declare interface IUISprite extends IUIElement {
     bindTextureExpression?: string;
 }
 
-declare interface IUIPanel extends IUIElement {
+declare interface IRoomUIPanel extends IRoomUIElement {
     type: 'panel',
     texture: assetRef;
     tint: number;
 }
 
-declare interface IUIButton extends IUIElement, IHasText {
+declare interface IRoomUIButton extends IRoomUIElement, IHasText {
     type: 'button',
     texture: assetRef,
     tint: number,
     use9patch: boolean,
+    settings9patch?: {
+        leftWidth: number,
+        rightWidth: number,
+        topHeight: number,
+        bottomHeight: number
+    },
     bindDisabledExpression?: string,
     textureHover: assetRef,
     texturePress: assetRef,
@@ -117,7 +127,7 @@ declare interface IUIButton extends IUIElement, IHasText {
     soundPressDisabled: assetRef
 }
 
-declare type uiElement = IUIButton | IUISprite | IUIText | IUIPanel;
+declare type roomUiElement = IRoomUIButton | IRoomUISprite | IRoomUIText | IRoomUIPanel;
 
 declare interface IRoom extends IScriptable {
     width: number;

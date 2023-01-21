@@ -113,6 +113,7 @@ room-editor.aPanel.aView
         room-ui-elements.room-editor-aContextPanel(
             if="{currentTool === 'ui'}"
             room="{opts.room}"
+            pixieditor="{pixiEditor}"
             history="{pixiEditor?.history}"
             ref="uiEditor"
         )
